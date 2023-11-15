@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="db_systeme_commercial" id="Project_5c83c1" database="PostgreSQL" >
+	<schema name="db_systeme_commercial" >
+		<table name="article" >
+			<column name="id" type="varchar" length="8" jt="12" mandatory="y" >
+				<defo>CONCAT(&#039;ART&#039;, nextval(&#039;article_id_seq&#039;))</defo>
+			</column>
+			<column name="nom" type="text" jt="12" />
+			<index name="pk_article_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="article_service" >
+			<column name="id_service" type="varchar" length="8" jt="12" />
+			<column name="id_article" type="varchar" length="8" jt="12" />
+			<fk name="fk_article_service_service" to_schema="db_systeme_commercial" to_table="service" >
+				<fk_column name="id_service" pk="id" />
+			</fk>
+			<fk name="fk_article_service_article" to_schema="db_systeme_commercial" to_table="article" >
+				<fk_column name="id_article" pk="id" />
+			</fk>
+		</table>
+		<table name="besoin" >
+			<column name="id" type="varchar" length="8" jt="12" mandatory="y" >
+				<defo>CONCAT(&#039;BES&#039;, nextval(&#039;besoin_id_seq&#039;))</defo>
+			</column>
+			<column name="id_service" type="varchar" length="8" jt="12" />
+			<column name="date_besoin" type="date" jt="91" >
+				<defo>now()</defo>
+			</column>
+			<column name="date_limite" type="date" jt="91" />
+			<column name="etat" type="integer" jt="4" >
+				<defo>0</defo>
+			</column>
+			<index name="pk_besoin_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_besoin_service" to_schema="db_systeme_commercial" to_table="service" >
+				<fk_column name="id_service" pk="id" />
+			</fk>
+		</table>
+		<table name="besoin_article" >
+			<column name="id_besoin" type="varchar" length="8" jt="12" />
+			<column name="id_article" type="varchar" length="8" jt="12" />
+			<column name="quantite" type="integer" jt="4" />
+			<fk name="fk_besoin_article_article" to_schema="db_systeme_commercial" to_table="article" >
+				<fk_column name="id_article" pk="id" />
+			</fk>
+			<fk name="fk_besoin_article_besoin" to_schema="db_systeme_commercial" to_table="besoin" >
+				<fk_column name="id_besoin" pk="id" />
+			</fk>
+		</table>
+		<table name="roles" >
+			<column name="id" type="varchar" length="8" jt="12" mandatory="y" >
+				<defo>CONCAT(&#039;ROL&#039;, nextval(&#039;role_id_seq&#039;))</defo>
+			</column>
+			<column name="nom" type="text" jt="12" />
+			<index name="pk_roles_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="service" >
+			<column name="id" type="varchar" length="8" jt="12" mandatory="y" >
+				<defo>CONCAT(&#039;SER&#039;, nextval(&#039;service_id_seq&#039;))</defo>
+			</column>
+			<column name="nom_service" type="text" jt="12" />
+			<index name="pk_service_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="utilisateur" >
+			<column name="id" type="varchar" length="8" jt="12" mandatory="y" >
+				<defo>CONCAT(&#039;UTI&#039;, nextval(&#039;utilisateur_id_seq&#039;))</defo>
+			</column>
+			<column name="email" type="text" jt="12" />
+			<column name="mdp" type="varchar" length="12" jt="12" mandatory="y" />
+			<column name="id_service" type="varchar" length="8" jt="12" />
+			<column name="id_role" type="varchar" length="8" jt="12" />
+			<index name="pk_utilisateur_id" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<constraint name="cns_email_utilisateur" >
+				<string>UNIQUE(email)</string>
+			</constraint>
+			<fk name="fk_utilisateur_service" to_schema="db_systeme_commercial" to_table="service" >
+				<fk_column name="id_service" pk="id" />
+			</fk>
+			<fk name="fk_utilisateur_roles" to_schema="db_systeme_commercial" to_table="roles" >
+				<fk_column name="id_role" pk="id" />
+			</fk>
+		</table>
+		<sequence name="article_id_seq" />
+		<sequence name="besoin_id_seq" />
+		<sequence name="role_id_seq" />
+		<sequence name="service_id_seq" />
+		<sequence name="utilisateur_id_seq" />
+	</schema>
+	<layout name="Default Layout" id="Layout_25a9bf7" show_relation="columns" >
+		<entity schema="db_systeme_commercial" name="roles" color="C1D8EE" x="48" y="64" />
+		<entity schema="db_systeme_commercial" name="service" color="C1D8EE" x="224" y="48" />
+		<entity schema="db_systeme_commercial" name="utilisateur" color="C1D8EE" x="192" y="352" />
+		<entity schema="db_systeme_commercial" name="article_service" color="C1D8EE" x="464" y="416" />
+		<entity schema="db_systeme_commercial" name="article" color="C1D8EE" x="672" y="272" />
+		<entity schema="db_systeme_commercial" name="besoin_article" color="C1D8EE" x="576" y="80" />
+		<entity schema="db_systeme_commercial" name="besoin" color="C1D8EE" x="400" y="208" />
+		<script name="SQL_Editor" id="Editor_1418ceb" language="SQL" >
+			<string><![CDATA[CREATE SCHEMA db_systeme_commercial;
+
+CREATE SEQUENCE article_id_seq;
+
+CREATE SEQUENCE besoin_id_seq;
+
+CREATE SEQUENCE role_id_seq;
+
+CREATE SEQUENCE service_id_seq;
+
+CREATE SEQUENCE utilisateur_id_seq;
+
+CREATE  TABLE article ( 
+	id                   varchar(8) DEFAULT CONCAT('ART', nextval('article_id_seq')) NOT NULL ,
+	nom                  text   ,
+	CONSTRAINT pk_article_id PRIMARY KEY ( id )
+ );
+
+CREATE  TABLE roles ( 
+	id                   varchar(8) DEFAULT CONCAT('ROL', nextval('role_id_seq')) NOT NULL ,
+	nom                  text   ,
+	CONSTRAINT pk_roles_id PRIMARY KEY ( id )
+ );
+
+CREATE  TABLE service ( 
+	id                   varchar(8) DEFAULT CONCAT('SER', nextval('service_id_seq')) NOT NULL ,
+	nom_service          text   ,
+	CONSTRAINT pk_service_id PRIMARY KEY ( id )
+ );
+
+CREATE  TABLE utilisateur ( 
+	id                   varchar(8) DEFAULT CONCAT('UTI', nextval('utilisateur_id_seq')) NOT NULL ,
+	email                text   ,
+	mdp                  varchar(12)  NOT NULL ,
+	id_service           varchar(8)   ,
+	id_role              varchar(8)   ,
+	CONSTRAINT pk_utilisateur_id PRIMARY KEY ( id ),
+	CONSTRAINT fk_utilisateur_service FOREIGN KEY ( id_service ) REFERENCES service( id )  ,
+	CONSTRAINT fk_utilisateur_roles FOREIGN KEY ( id_role ) REFERENCES roles( id )  
+ );
+
+ALTER TABLE utilisateur ADD CONSTRAINT cns_email_utilisateur CHECK ( UNIQUE(email) );
+
+CREATE  TABLE article_service ( 
+	id_service           varchar(8)   ,
+	id_article           varchar(8)   ,
+	CONSTRAINT fk_article_service_service FOREIGN KEY ( id_service ) REFERENCES service( id )  ,
+	CONSTRAINT fk_article_service_article FOREIGN KEY ( id_article ) REFERENCES article( id )  
+ );
+
+CREATE  TABLE besoin ( 
+	id                   varchar(8) DEFAULT CONCAT('BES', nextval('besoin_id_seq')) NOT NULL ,
+	id_service           varchar(8)   ,
+	date_besoin          date DEFAULT now()  ,
+	date_limite          date   ,
+	etat                 integer DEFAULT 0  ,
+	CONSTRAINT pk_besoin_id PRIMARY KEY ( id ),
+	CONSTRAINT fk_besoin_service FOREIGN KEY ( id_service ) REFERENCES service( id )  
+ );
+
+CREATE  TABLE besoin_article ( 
+	id_besoin            varchar(8)   ,
+	id_article           varchar(8)   ,
+	quantite             integer   ,
+	CONSTRAINT fk_besoin_article_article FOREIGN KEY ( id_article ) REFERENCES article( id )  ,
+	CONSTRAINT fk_besoin_article_besoin FOREIGN KEY ( id_besoin ) REFERENCES besoin( id )  
+ );
+]]></string>
+		</script>
+	</layout>
+</project>
