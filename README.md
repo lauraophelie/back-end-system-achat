@@ -8,6 +8,7 @@
 - Java 17
 - Visual Studio Code ou IntelliJ IDE
 - PostgreSQL
+- Postman
 
 ### installation dépendances :
     mvn clean install
