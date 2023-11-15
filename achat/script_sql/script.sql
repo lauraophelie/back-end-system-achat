@@ -58,7 +58,7 @@ CREATE  TABLE besoin (
 	id_service           varchar(8)   ,
 	date_besoin          date DEFAULT now()  ,
 	date_limite          date   ,
-	etat                 integer DEFAULT 0  ,
+	etat                 integer DEFAULT 0  , -- 0 : en attente, 1 : validé, -1 : refusé
 	CONSTRAINT pk_besoin_id PRIMARY KEY ( id ),
 	CONSTRAINT fk_besoin_service FOREIGN KEY ( id_service ) REFERENCES service( id )  
  );
