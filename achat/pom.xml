@@ -9,11 +9,11 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.systeme</groupId>
-	<artifactId>achat</artifactId>
+	<artifactId>commercial</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>achat</name>
-	<description>Système d&apos;achat - Gestion </description>
+	<description>Système commercial - Gestion </description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>

@@ -1,13 +1,13 @@
-package com.systeme.achat;
+package com.systeme.commercial;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AchatApplication {
+public class CommercialApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AchatApplication.class, args);
+		SpringApplication.run(CommercialApplication.class, args);
 	}
 
 }
