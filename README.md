@@ -1,4 +1,4 @@
-# back-end-system-achat
+# back-end-system-commercial
 
 ### technologie : spring boot java
 ### base de données : PostgreSQL
