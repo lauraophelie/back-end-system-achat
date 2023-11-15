@@ -1,10 +1,10 @@
-package com.systeme.achat;
+package com.systeme.commercial;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AchatApplicationTests {
+class CommercialApplicationTests {
 
 	@Test
 	void contextLoads() {
