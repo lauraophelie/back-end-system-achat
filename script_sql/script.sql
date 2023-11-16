@@ -35,7 +35,7 @@ CREATE  TABLE service (
 
 CREATE  TABLE utilisateur ( 
 	id                   varchar(8) DEFAULT CONCAT('UTI', nextval('utilisateur_id_seq')) NOT NULL ,
-	email                text   ,
+	email                text   NOT NULL,
 	mdp                  varchar(12)  NOT NULL ,
 	id_service           varchar(8)   ,
 	id_role              varchar(8)   ,
