@@ -9,16 +9,18 @@ CREATE SEQUENCE article_id_seq;
 
 CREATE SEQUENCE besoin_id_seq;
 
+CREATE SEQUENCE categorie_article_id_seq;
+
 CREATE SEQUENCE role_id_seq;
 
 CREATE SEQUENCE service_id_seq;
 
 CREATE SEQUENCE utilisateur_id_seq;
 
-CREATE  TABLE article ( 
-	id                   varchar(8) DEFAULT CONCAT('ART', nextval('article_id_seq')) NOT NULL ,
-	nom                  text   ,
-	CONSTRAINT pk_article_id PRIMARY KEY ( id )
+CREATE  TABLE categorie_article ( 
+	id                   varchar(8) DEFAULT CONCAT('CAT', nextval('categorie_article_id_seq')) NOT NULL ,
+	nom_categorie        text   ,
+	CONSTRAINT pk_categorie_article_id PRIMARY KEY ( id )
  );
 
 CREATE  TABLE roles ( 
@@ -35,7 +37,7 @@ CREATE  TABLE service (
 
 CREATE  TABLE utilisateur ( 
 	id                   varchar(8) DEFAULT CONCAT('UTI', nextval('utilisateur_id_seq')) NOT NULL ,
-	email                text   NOT NULL,
+	email                text   ,
 	mdp                  varchar(12)  NOT NULL ,
 	id_service           varchar(8)   ,
 	id_role              varchar(8)   ,
@@ -45,6 +47,14 @@ CREATE  TABLE utilisateur (
  );
 
 ALTER TABLE utilisateur ADD CONSTRAINT cns_email_utilisateur CHECK ( UNIQUE(email) );
+
+CREATE  TABLE article ( 
+	id                   varchar(8) DEFAULT CONCAT('ART', nextval('article_id_seq')) NOT NULL ,
+	nom                  text   ,
+	categorie            varchar(8)   ,
+	CONSTRAINT pk_article_id PRIMARY KEY ( id ),
+	CONSTRAINT fk_article_categorie_article FOREIGN KEY ( categorie ) REFERENCES categorie_article( id )  
+ );
 
 CREATE  TABLE article_service ( 
 	id_service           varchar(8)   ,
@@ -58,7 +68,7 @@ CREATE  TABLE besoin (
 	id_service           varchar(8)   ,
 	date_besoin          date DEFAULT now()  ,
 	date_limite          date   ,
-	etat                 integer DEFAULT 0  , -- 0 : en attente, 1 : validé, -1 : refusé
+	etat                 integer DEFAULT 0  ,
 	CONSTRAINT pk_besoin_id PRIMARY KEY ( id ),
 	CONSTRAINT fk_besoin_service FOREIGN KEY ( id_service ) REFERENCES service( id )  
  );

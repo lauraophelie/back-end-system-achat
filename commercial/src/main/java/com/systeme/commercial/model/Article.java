@@ -3,6 +3,8 @@ package com.systeme.commercial.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -31,9 +33,26 @@ public class Article {
         this.nomArticle = nomArticle;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "categorie")
+    Categorie categorie;
+
+    public Categorie getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(Categorie categorie) {
+        this.categorie = categorie;
+    }
+
     public Article() {}
-    public Article(String id, String nomArticle) {
+    public Article(String nomArticle, Categorie categorie) {
+        this.setNomArticle(nomArticle);
+        this.setCategorie(categorie);
+    }
+    public Article(String id, String nomArticle, Categorie categorie) {
         this.setId(id);
         this.setNomArticle(nomArticle);
+        this.setCategorie(categorie);
     }
 }
