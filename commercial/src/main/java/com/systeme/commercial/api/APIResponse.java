@@ -20,4 +20,9 @@ public class APIResponse {
     public void setData(Object data) {
         this.data = data;
     }
+
+    public APIResponse(String string, Object object) {
+        this.setError(string);
+        this.setData(object);
+    }
 }
