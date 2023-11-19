@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.systeme.commercial.api.APIResponse;
 import com.systeme.commercial.model.Utilisateur;
 import com.systeme.commercial.service.UtilisateurService;
-
 @RestController
 @RequestMapping("/api/login")
 @CrossOrigin(origins = "*")
@@ -21,9 +20,20 @@ public class UtilisateurController {
         this.service = service;
     }
 
-    @PostMapping("/api/login/utilisateur")
+    @PostMapping("/utilisateur")
     public ResponseEntity<APIResponse> getUtilisateur(@RequestBody Utilisateur utilisateur) {
-        /// verification utilisateur
-        return null;
+        try {
+            boolean estValide = service.verifierUtilisateur(utilisateur);
+
+            if (estValide) {
+                return ResponseEntity.ok(new APIResponse("", true));
+            } else {
+                return ResponseEntity.ok(new APIResponse("", false));
+            }
+        } catch (Exception e) {
+            APIResponse response = new APIResponse(e.toString(), null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
+
 }
