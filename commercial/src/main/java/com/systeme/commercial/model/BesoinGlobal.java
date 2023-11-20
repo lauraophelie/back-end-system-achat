@@ -1,46 +1,59 @@
 package com.systeme.commercial.model;
 
-import java.sql.Date;
-import java.util.List;
+import org.hibernate.annotations.Immutable;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity(name = "v_besoin_global_ByService")
+@Immutable
 public class BesoinGlobal {
-    Date dateDebut;
 
-    public Date getDateDebut() {
-        return dateDebut;
+    @Id
+    @Column(name = "semaine")
+    int semaine;
+
+    @Column(name = "id_article")
+    String idArticle;
+
+    @Column(name = "quantite")
+    int quantite;
+
+    @Column(name = "id_service")
+    String idService;
+
+    public String getIdService() {
+        return idService;
     }
 
-    public void setDateDebut(Date dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setIdService(String idService) {
+        this.idService = idService;
     }
 
-    Date dateFin;
-
-    public Date getDateFin() {
-        return dateFin;
+    public int getSemaine() {
+        return semaine;
     }
 
-    public void setDateFin(Date dateFin) {
-        this.dateFin = dateFin;
+    public void setSemaine(int semaine) {
+        this.semaine = semaine;
     }
 
-    List<FicheArticle> listeArticles;
-
-    public List<FicheArticle> getListeArticles() {
-        return listeArticles;
+    public String getIdArticle() {
+        return idArticle;
     }
 
-    public void setListeArticles(List<FicheArticle> listeArticles) {
-        this.listeArticles = listeArticles;
+    public void setIdArticle(String idArticle) {
+        this.idArticle = idArticle;
     }
 
-    int etat;
-
-    public int getEtat() {
-        return etat;
+    public int getQuantite() {
+        return quantite;
     }
 
-    public void setEtat(int etat) {
-        this.etat = etat;
+    public void setQuantite(int quantite) {
+        this.quantite = quantite;
     }
+
 }

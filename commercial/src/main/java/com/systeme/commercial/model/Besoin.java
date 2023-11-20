@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
@@ -16,28 +17,41 @@ import jakarta.persistence.Table;
 @Table(name = "besoin")
 public class Besoin {
     @Id
-    @Column(name = "id", columnDefinition = "varchar(8) DEFAULT CONCAT('BES', nextval('besoin_id_seq')) NOT NULL")
-    String id;
+    @GeneratedValue
+    @Column(name = "id")
+    Integer id;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
-    
-    @ManyToOne
-    @JoinColumn(name = "id_service")
-    Service serviceConcerne;
 
-    public Service getServiceConcerne() {
-        return serviceConcerne;
+    @Column(name = "id_service")
+    String idService;
+
+
+    public String getIdService() {
+        return idService;
     }
 
-    public void setServiceConcerne(Service serviceConcerne) {
-        this.serviceConcerne = serviceConcerne;
+    public void setIdService(String idService) {
+        this.idService = idService;
     }
+
+    // @ManyToOne
+    // @JoinColumn(name = "id_service")
+    // Service serviceConcerne;
+
+    // public Service getServiceConcerne() {
+    //     return serviceConcerne;
+    // }
+
+    // public void setServiceConcerne(Service serviceConcerne) {
+    //     this.serviceConcerne = serviceConcerne;
+    // }
 
     @Column(name = "date_besoin", columnDefinition = "DATE DEFAULT now()")
     Date dateBesoin;
@@ -70,6 +84,17 @@ public class Besoin {
 
     public void setEtat(int etat) {
         this.etat = etat;
+    }
+
+    @Column(name = "etatEmail" , columnDefinition = "integer DEFAULT 0")
+    int etatEmail;
+
+    public int getEtatEmail() {
+        return etatEmail;
+    }
+
+    public void setEtatEmail(int etatEmail) {
+        this.etatEmail = etatEmail;
     }
 
     @ManyToMany
