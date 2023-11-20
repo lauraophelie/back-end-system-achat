@@ -25,7 +25,7 @@ public class Service {
         this.id = id;
     }
 
-    @Column(name = "nom")
+    @Column(name = "nom_service")
     String nomService;
 
     public String getNomService() {

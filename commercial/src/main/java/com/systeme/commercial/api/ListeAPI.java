@@ -10,4 +10,8 @@ public class ListeAPI extends APIResponse {
     public void setCount(int count) {
         this.count = count;
     }
+
+     public ListeAPI(String string, Object object) {
+        super(string, object);
+    }
 }
