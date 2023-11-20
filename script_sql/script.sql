@@ -64,17 +64,18 @@ CREATE  TABLE article_service (
  );
 
 CREATE  TABLE besoin ( 
-	id                   varchar(8) DEFAULT CONCAT('BES', nextval('besoin_id_seq')) NOT NULL ,
+	id                   SERIAL PRIMARY KEY ,
 	id_service           varchar(8)   ,
 	date_besoin          date DEFAULT now()  ,
 	date_limite          date   ,
 	etat                 integer DEFAULT 0  ,
-	CONSTRAINT pk_besoin_id PRIMARY KEY ( id ),
 	CONSTRAINT fk_besoin_service FOREIGN KEY ( id_service ) REFERENCES service( id )  
  );
 
+ ALTER table besoin ADD column etatEmail int DEFAULT 0;
+
 CREATE  TABLE besoin_article ( 
-	id_besoin            varchar(8)   ,
+	id_besoin            int not null  ,
 	id_article           varchar(8)   ,
 	quantite             integer   ,
 	CONSTRAINT fk_besoin_article_article FOREIGN KEY ( id_article ) REFERENCES article( id )  ,
@@ -106,8 +107,88 @@ insert into article_service(id_article,id_service) values('ART3','SER2');
 
 insert into besoin(id_service,date_besoin,date_limite,etat) values('SER1','2023-10-02','2023-11-20',0);
 
-insert into besoin_article values('BES1','ART1',10);
-insert into besoin_article values('BES1','ART2',5);
+insert into besoin_article values(1,'ART1',10);
+insert into besoin_article values(1,'ART2',5);
 
 
 select u1_0.id,u1_0.email,u1_0.mdp,u1_0.id_role,u1_0.id_service from utilisateur u1_0 where u1_0.email='dsi@gmail.com' and u1_0.mdp='dsi'
+
+
+create table validation_besoin(
+	id_besoin int not null,
+	date_validation date DEFAULT now(),
+	FOREIGN KEY(id_besoin) REFERENCES besoin(id)
+);
+
+select
+	ba.*,
+	b.id_service,
+	b.date_besoin,
+	b.date_limite,
+	b.etat_email,
+	b.date_validation,
+	b.semaine
+from besoin_article AS ba
+JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
+WHERE b.etat_email = 0;
+
+create view v_besoin_valide_with_article as (
+	select
+		ba.*,
+		b.id_service,
+		b.date_besoin,
+		b.date_limite,
+		b.etat_email,
+		b.date_validation,
+		b.semaine
+	from besoin_article AS ba
+	JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
+	WHERE b.etat_email = 0
+);
+
+select * from v_besoin_valide_with_article;
+
+select 
+	semaine,
+	id_article,
+	sum(quantite) as quantite,
+from v_besoin_valide_with_article
+group by semaine, id_article;
+
+create view v_besoins_global as(
+	select 
+		semaine,
+		id_article,
+		sum(quantite) as quantite
+	from v_besoin_valide_with_article
+	group by semaine, id_article
+);
+
+select 
+		semaine,
+		id_article,
+		sum(quantite) as quantite,
+		id_service
+	from v_besoin_valide_with_article
+	group by semaine, id_article,id_service
+
+select 
+	b.*,
+	vb.*,
+	extract(week from vb.date_validation) AS semaine
+from validation_besoin AS vb
+JOIN besoin AS b ON vb.id_besoin = b.id;
+
+create view v_besoin_valide as (select b.*,
+	vb.*,
+	extract(week from vb.date_validation) AS semaine
+from validation_besoin AS vb
+JOIN besoin AS b ON vb.id_besoin = b.id);
+
+create view v_besoin_global_ByService as (select 
+		semaine,
+		id_article,
+		sum(quantite) as quantite,
+		id_service
+	from v_besoin_valide_with_article
+	group by semaine, id_article,id_service);
