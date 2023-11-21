@@ -17,4 +17,8 @@ public class UtilisateurService {
 
         return utilisateurEnBase != null;
     }
+
+    public Utilisateur checkUtilisateur(Utilisateur utilisateur) {
+        return repository.findByEmailAndPassword(utilisateur.getEmail(), utilisateur.getPassword());
+    }
 }
