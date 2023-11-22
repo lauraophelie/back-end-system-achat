@@ -49,6 +49,6 @@ public interface BesoinRepository extends JpaRepository<Besoin, Integer> {
 
     public void save(BesoinArticle article);
 
-    @Query(value = "SELECT * FROM besoin WHERE id_service = :id_service", nativeQuery = true)
-    public List<Besoin> findAllByIdService(@Param("id_service") String idService);
+    @Query(value = "SELECT * FROM besoin WHERE id_service = :idService", nativeQuery = true)
+    public List<Besoin> findAllByIdService(@Param("idService") String idService);
 }

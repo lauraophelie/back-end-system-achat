@@ -195,5 +195,35 @@ create view v_besoin_global_ByService as (
 		sum(quantite) as quantite,
 		id_service
 	from v_besoin_valide_with_article
+<<<<<<< HEAD
 	group by id_service, semaine, id_article
 );
+=======
+	group by semaine, id_article,id_service);
+
+CREATE SEQUENCE fornisseur_id_seq;
+
+CREATE table fournisseur(
+	id                   varchar(8) DEFAULT CONCAT('FRN', nextval('fornisseur_id_seq')) NOT NULL ,
+	nom varchar(50),
+	adresse varchar(50),
+	responsable varchar(80),
+	CONSTRAINT pk_fournisseur_id PRIMARY KEY ( id )
+
+);
+
+create table proforma(
+	id_article varchar(8),
+	quantite int,
+	prixUnitaire decimal,
+	id_fournisseur varchar(8),
+	dateProforma date,
+	CONSTRAINT fk_proforma_article FOREIGN KEY ( id_article ) REFERENCES article( id )  ,
+	CONSTRAINT fk_proforma_fournisseur FOREIGN KEY ( id_fournisseur ) REFERENCES fournisseur( id )  
+);
+
+insert into fournisseur(nom,adresse,responsable) values('Jumbo Score','Ankorondrano','Reponsable Jumbo');
+insert into fournisseur(nom,adresse,responsable) values('Supermaki','Andoharanofotsy','Reponsable Supermaki');
+insert into fournisseur(nom,adresse,responsable) values('Super U','Analakely','Reponsable Super U');
+
+>>>>>>> 17a2750180f241063c3fc66b12c6dd733e1e8d86

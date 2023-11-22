@@ -36,7 +36,7 @@ public class BesoinController {
     public ResponseEntity<APIResponse> findAllByIdService(@PathVariable String idService) {
         try {
             List<Besoin> listeBesoin = service.findAllByIdService(idService);
-            int count = 0;
+            int count = listeBesoin.size();
 
             ListeAPI api = null;
 

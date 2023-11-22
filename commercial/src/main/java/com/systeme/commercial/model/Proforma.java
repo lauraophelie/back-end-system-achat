@@ -2,48 +2,47 @@ package com.systeme.commercial.model;
 
 import java.sql.Date;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "proforma")
 public class Proforma {
-    int id;
+    @Id
+    @Column(name = "id_article")
+    String idArticle;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    Article article;
-
-    public Article getArticle() {
-        return article;
-    }
-
-    public void setArticle(Article article) {
-        this.article = article;
-    }
-
-    double prixUnitaire;
-
-    public double getPrixUnitaire() {
-        return prixUnitaire;
-    }
-
-    public void setPrixUnitaire(double prixUnitaire) {
-        this.prixUnitaire = prixUnitaire;
-    }
-
-    Fournisseur fournisseur;
-
-    public Fournisseur getFournisseur() {
-        return fournisseur;
-    }
-
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
-    }
-
+    @Column(name = "quantite")
     int quantite;
+
+    @Column(name = "prixUnitaire")
+    double prixU;
+
+    @Column(name = "id_fournisseur")
+    String idFournisseur;
+
+    @Column(name = "dateProforma")
+    Date dateProforma;
+
+    // @ManyToOne
+    // @JoinColumn(name = "id_article")
+    // Article article;
+
+    // @ManyToOne
+    // @JoinColumn(name = "id_fournisseur")
+    // Fournisseur fournisseur;
+
+    public String getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(String idArticle) {
+        this.idArticle = idArticle;
+    }
 
     public int getQuantite() {
         return quantite;
@@ -53,23 +52,43 @@ public class Proforma {
         this.quantite = quantite;
     }
 
-    Date dateSaisie;
-
-    public Date getDateSaisie() {
-        return dateSaisie;
+    public double getPrixU() {
+        return prixU;
     }
 
-    public void setDateSaisie(Date dateSaisie) {
-        this.dateSaisie = dateSaisie;
+    public void setPrixU(double prixU) {
+        this.prixU = prixU;
     }
 
-    Mail mail;
-
-    public Mail getMail() {
-        return mail;
+    public String getIdFournisseur() {
+        return idFournisseur;
     }
 
-    public void setMail(Mail mail) {
-        this.mail = mail;
+    public void setIdFournisseur(String idFournisseur) {
+        this.idFournisseur = idFournisseur;
     }
+
+    public Date getDateProforma() {
+        return dateProforma;
+    }
+
+    public void setDateProforma(Date dateProforma) {
+        this.dateProforma = dateProforma;
+    }
+
+    // public Article getArticle() {
+    //     return article;
+    // }
+
+    // public void setArticle(Article article) {
+    //     this.article = article;
+    // }
+
+    // public Fournisseur getFournisseur() {
+    //     return fournisseur;
+    // }
+
+    // public void setFournisseur(Fournisseur fournisseur) {
+    //     this.fournisseur = fournisseur;
+    // }
 }
