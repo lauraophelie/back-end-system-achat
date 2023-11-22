@@ -113,10 +113,10 @@ public class BesoinController {
     @PutMapping("/{id}")
     public ResponseEntity<APIResponse> updateBesoin(@RequestBody Besoin besoin, @PathVariable int id) {
         try {
-            service.updateBesoin(besoin,id);
+            service.updateBesoin(besoin, id);
             service.addValidationBesoin(id, Date.valueOf(LocalDate.now()));
+
             return ResponseEntity.ok(new APIResponse(null, true));
-            
         } catch (Exception e) {
             // TODO: handle exception
             APIResponse response = new APIResponse("Erreur lors de la création du besoin: " + e.getMessage(), false);
