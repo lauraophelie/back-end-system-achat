@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 @Table(name = "besoin_article")
 public class BesoinArticle {
 
-    @Id
     @Column(name = "id_besoin")
     private int idBesoin;
 

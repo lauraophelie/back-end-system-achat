@@ -2,8 +2,9 @@ package com.systeme.commercial.model;
 
 
 public class CreateBesoinArticle {
-    String[] idArticles;
-    int[] qte;
+    String [] idArticles;
+    int [] qte;
+
     public int[] getQte() {
         return qte;
     }
@@ -16,5 +17,4 @@ public class CreateBesoinArticle {
     public void setIdArticles(String[] idArticles) {
         this.idArticles = idArticles;
     }
-    
 }
