@@ -36,6 +36,17 @@ public class Service {
         this.nomService = nomService;
     }
 
+    @Column(name = "code_service")
+    String codeService;
+
+    public String getCodeService() {
+        return codeService;
+    }
+
+    public void setCodeService(String codeService) {
+        this.codeService = codeService;
+    }
+
     @ManyToMany
     @JoinTable(
         name = "article_service",

@@ -1,5 +1,6 @@
 package com.systeme.commercial.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Mail {
@@ -51,5 +52,15 @@ public class Mail {
 
     public void setEntreprise(Entreprise entreprise) {
         this.entreprise = entreprise;
+    }
+
+    Date dateEnvoi;
+
+    public Date getDateEnvoi() {
+        return dateEnvoi;
+    }
+
+    public void setDateEnvoi(Date dateEnvoi) {
+        this.dateEnvoi = dateEnvoi;
     }
 }

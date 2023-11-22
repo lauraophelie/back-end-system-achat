@@ -32,6 +32,7 @@ CREATE  TABLE roles (
 CREATE  TABLE service ( 
 	id                   varchar(8) DEFAULT CONCAT('SER', nextval('service_id_seq')) NOT NULL ,
 	nom_service          text   ,
+	code_service		 varchar(15) NOT NULL,
 	CONSTRAINT pk_service_id PRIMARY KEY ( id )
  );
 
@@ -46,7 +47,9 @@ CREATE  TABLE utilisateur (
 	CONSTRAINT fk_utilisateur_roles FOREIGN KEY ( id_role ) REFERENCES roles( id )  
  );
 
-ALTER TABLE utilisateur ADD CONSTRAINT cns_email_utilisateur CHECK ( UNIQUE(email) );
+ALTER TABLE service ADD CONSTRAINT cns_code_service UNIQUE(code_service);
+
+ALTER TABLE utilisateur ADD CONSTRAINT cns_email_utilisateur UNIQUE(email);
 
 CREATE  TABLE article ( 
 	id                   varchar(8) DEFAULT CONCAT('ART', nextval('article_id_seq')) NOT NULL ,
@@ -72,10 +75,10 @@ CREATE  TABLE besoin (
 	CONSTRAINT fk_besoin_service FOREIGN KEY ( id_service ) REFERENCES service( id )  
  );
 
- ALTER table besoin ADD column etatEmail int DEFAULT 0;
+ALTER table besoin ADD column etatEmail int DEFAULT 0;
 
 CREATE  TABLE besoin_article ( 
-	id_besoin            int not null  ,
+	id_besoin            integer ,
 	id_article           varchar(8)   ,
 	quantite             integer   ,
 	CONSTRAINT fk_besoin_article_article FOREIGN KEY ( id_article ) REFERENCES article( id )  ,
@@ -138,12 +141,12 @@ create view v_besoin_valide_with_article as (
 		b.id_service,
 		b.date_besoin,
 		b.date_limite,
-		b.etat_email,
+		b.etatemail,
 		b.date_validation,
 		b.semaine
 	from besoin_article AS ba
 	JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
-	WHERE b.etat_email = 0
+	WHERE b.etatemail = 0
 );
 
 select * from v_besoin_valide_with_article;
@@ -185,10 +188,12 @@ create view v_besoin_valide as (select b.*,
 from validation_besoin AS vb
 JOIN besoin AS b ON vb.id_besoin = b.id);
 
-create view v_besoin_global_ByService as (select 
+create view v_besoin_global_ByService as (
+	select 
 		semaine,
 		id_article,
 		sum(quantite) as quantite,
 		id_service
 	from v_besoin_valide_with_article
-	group by semaine, id_article,id_service);
+	group by id_service, semaine, id_article
+);

@@ -11,7 +11,11 @@ public class ListeAPI extends APIResponse {
         this.count = count;
     }
 
-     public ListeAPI(String string, Object object) {
+    public ListeAPI(String string, Object object) {
         super(string, object);
+    }
+    public ListeAPI(String string, Object object, int count) {
+        super(string, object);
+        this.setCount(count);
     }
 }
