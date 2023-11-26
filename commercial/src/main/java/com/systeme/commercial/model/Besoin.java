@@ -3,6 +3,8 @@ package com.systeme.commercial.model;
 import java.sql.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -54,6 +57,7 @@ public class Besoin {
     // }
 
     @Column(name = "date_besoin", columnDefinition = "DATE DEFAULT now()")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     Date dateBesoin;
 
     public Date getDateBesoin() {
@@ -65,6 +69,7 @@ public class Besoin {
     }
 
     @Column(name = "date_limite")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     Date dateLimite;
 
     public Date getDateLimite() {
@@ -103,9 +108,9 @@ public class Besoin {
         joinColumns = @JoinColumn(name = "id_besoin"),
         inverseJoinColumns = @JoinColumn(name = "id_article")
     )
-    List<Article> listeArticles;
+    List<BesoinArticle> listeArticles;
 
-    public List<Article> getListeArticles() {
+    public List<BesoinArticle> getListeArticles() {
         return listeArticles;
     }
 }

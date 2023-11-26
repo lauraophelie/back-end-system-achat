@@ -54,6 +54,21 @@ public class BesoinController {
         }
     }
 
+    @PostMapping("/findBesoin/{id}")
+    public ResponseEntity<APIResponse> findById(@PathVariable int id) {
+        try {
+            Besoin find = service.findById(id);
+            APIResponse api = new APIResponse(null, find);
+
+            return ResponseEntity.ok(api);
+        } catch (Exception e) {
+            e.printStackTrace();
+
+            APIResponse response = new APIResponse(e.getMessage(), null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
     @PostMapping("/last")
     public ResponseEntity<?> getLastBesoin() {
         try {
@@ -74,7 +89,7 @@ public class BesoinController {
                     request.getDateLimite(),
                     request.getEtat()
             );
-            return ResponseEntity.ok(new APIResponse("Besoin créé avec succès, ID: " , true));
+            return ResponseEntity.ok(new APIResponse(null, true));
         } catch (Exception e) {
             APIResponse response = new APIResponse("Erreur lors de la création du besoin: " + e.getMessage(), false);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
@@ -85,7 +100,7 @@ public class BesoinController {
     public ResponseEntity<APIResponse> createBesoinWithArticles(@RequestBody CreateBesoinArticle request) {
         try {
             service.createBesoinWithArticles(request.getIdArticles(),request.getQte());
-            return ResponseEntity.ok(new APIResponse("Besoin créé avec succès, ID: " , true));
+            return ResponseEntity.ok(new APIResponse(null, true));
             
         } catch (Exception e) {
             // TODO: handle exception
@@ -98,10 +113,10 @@ public class BesoinController {
     @PutMapping("/{id}")
     public ResponseEntity<APIResponse> updateBesoin(@RequestBody Besoin besoin, @PathVariable int id) {
         try {
-            service.updateBesoin(besoin,id);
+            service.updateBesoin(besoin, id);
             service.addValidationBesoin(id, Date.valueOf(LocalDate.now()));
-            return ResponseEntity.ok(new APIResponse("Besoin update avec succès, ID: " , true));
-            
+
+            return ResponseEntity.ok(new APIResponse(null, true));
         } catch (Exception e) {
             // TODO: handle exception
             APIResponse response = new APIResponse("Erreur lors de la création du besoin: " + e.getMessage(), false);

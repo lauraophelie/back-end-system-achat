@@ -135,17 +135,45 @@ from besoin_article AS ba
 JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
 WHERE b.etat_email = 0;
 
-create view v_besoin_valide_with_article as (
+create view v_besoin_valide as (
+	select b.*,
+		vb.*,
+		extract(week from vb.date_validation) AS semaine
+	from validation_besoin AS vb
+	JOIN besoin AS b ON vb.id_besoin = b.id;
+);
+
 	select
 		ba.*,
+		a.nom AS nom_article,
 		b.id_service,
+		s.nom_service,
 		b.date_besoin,
 		b.date_limite,
 		b.etatemail,
 		b.date_validation,
 		b.semaine
 	from besoin_article AS ba
+	JOIN article AS a ON ba.id_article = a.id
 	JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
+	JOIN service AS s ON b.id_service = s.id
+	WHERE b.etatemail = 0;
+
+create view v_besoin_valide_with_article as (
+	select
+		ba.*,
+		a.nom AS nom_article,
+		b.id_service,
+		s.nom_service,
+		b.date_besoin,
+		b.date_limite,
+		b.etatemail,
+		b.date_validation,
+		b.semaine
+	from besoin_article AS ba
+	JOIN article AS a ON ba.id_article = a.id
+	JOIN v_besoin_valide AS b ON ba.id_besoin = b.id
+	JOIN service AS s ON b.id_service = s.id
 	WHERE b.etatemail = 0
 );
 
@@ -162,9 +190,10 @@ create view v_besoins_global as(
 	select 
 		semaine,
 		id_article,
+		nom_article,
 		sum(quantite) as quantite
 	from v_besoin_valide_with_article
-	group by semaine, id_article
+	group by semaine, nom_article, id_article
 );
 
 select 
@@ -182,24 +211,19 @@ select
 from validation_besoin AS vb
 JOIN besoin AS b ON vb.id_besoin = b.id;
 
-create view v_besoin_valide as (select b.*,
-	vb.*,
-	extract(week from vb.date_validation) AS semaine
-from validation_besoin AS vb
-JOIN besoin AS b ON vb.id_besoin = b.id);
+
 
 create view v_besoin_global_ByService as (
 	select 
 		semaine,
 		id_article,
+		nom_article,
 		sum(quantite) as quantite,
-		id_service
+		id_service,
+		nom_service
 	from v_besoin_valide_with_article
-<<<<<<< HEAD
-	group by id_service, semaine, id_article
+	group by semaine, id_article, nom_article, id_service, nom_service
 );
-=======
-	group by semaine, id_article,id_service);
 
 CREATE SEQUENCE fornisseur_id_seq;
 
@@ -233,7 +257,6 @@ insert into fournisseur(nom,adresse,responsable) values('Jumbo Score','Ankorondr
 insert into fournisseur(nom,adresse,responsable) values('Supermaki','Andoharanofotsy','Reponsable Supermaki');
 insert into fournisseur(nom,adresse,responsable) values('Super U','Analakely','Reponsable Super U');
 
-<<<<<<< HEAD
 CREATE VIEW vue_prix_minimum_par_article_et_date AS
 SELECT
     p.id_article,
@@ -296,6 +319,4 @@ JOIN
     categorie_article ca ON a.categorie = ca.id
 JOIN
     fournisseur f ON p.id_fournisseur = f.id;
-=======
->>>>>>> 17a2750180f241063c3fc66b12c6dd733e1e8d86
->>>>>>> b2bf1f3fd767172ab618917c1cc4d0cd5e747e8e
+
