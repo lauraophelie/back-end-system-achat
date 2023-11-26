@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.systeme.commercial.api.APIResponse;
 import com.systeme.commercial.model.Utilisateur;
 import com.systeme.commercial.service.UtilisateurService;
+
 @RestController
 @RequestMapping("/api/login")
 @CrossOrigin(origins = "*")
@@ -27,11 +28,12 @@ public class UtilisateurController {
             boolean estValide = service.verifierUtilisateur(utilisateur);
 
             if (estValide) {
-                return ResponseEntity.ok(new APIResponse("", true));
+                return ResponseEntity.ok(new APIResponse(null, service.checkUtilisateur(utilisateur)));
             } else {
-                return ResponseEntity.ok(new APIResponse("", false));
+                return ResponseEntity.ok(new APIResponse("Utilisateur introuvable", false));
             }
         } catch (Exception e) {
+            e.printStackTrace();
             APIResponse response = new APIResponse(e.toString(), null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

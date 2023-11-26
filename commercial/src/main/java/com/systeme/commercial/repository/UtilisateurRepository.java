@@ -9,6 +9,6 @@ import com.systeme.commercial.model.Utilisateur;
 
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, String> {
- @Query("SELECT u FROM Utilisateur u WHERE u.email = :email AND u.password = :password")
-    Utilisateur findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    @Query("SELECT u FROM Utilisateur u WHERE u.email = :email AND u.password = :password")
+    public Utilisateur findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }

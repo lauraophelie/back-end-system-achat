@@ -6,18 +6,18 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "besoin")
 public class Besoin {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     Integer id;
 
@@ -86,7 +86,7 @@ public class Besoin {
         this.etat = etat;
     }
 
-    @Column(name = "etatEmail" , columnDefinition = "integer DEFAULT 0")
+    @Column(name = "etatemail" , columnDefinition = "integer DEFAULT 0")
     int etatEmail;
 
     public int getEtatEmail() {

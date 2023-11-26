@@ -1,13 +1,11 @@
 package com.systeme.commercial.service;
 
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.stereotype.Service;
 
-import com.systeme.commercial.model.Article;
 import com.systeme.commercial.model.Besoin;
 import com.systeme.commercial.model.BesoinArticle;
 import com.systeme.commercial.model.BesoinGlobal;
@@ -22,9 +20,6 @@ public class BesoinService {
     public BesoinService(BesoinRepository repository) {
         this.repository = repository;
     }
-
-    
-    
 
     @Transactional
     public int createBesoin(String idService, Date dateBesoin, Date dateLimite, int etat) {
@@ -56,18 +51,14 @@ public class BesoinService {
             repository.addArticleToBesoin(besoinArticle.getIdBesoin(),besoinArticle.getIdArticle(),besoinArticle.getQuantite());
             repository.flush();
         }
+        return besoin;
+    }
 
-    return besoin;
-}
-
- @Transactional
+    @Transactional
     public void addValidationBesoin(int idBesoin, Date date) {
         repository.addValidationBesoin(idBesoin, date);
-        
+    }
 
-}
-
-    
     public Besoin findLastBesoin() {
         return repository.findTopByOrderByIdDesc();
     }
@@ -82,5 +73,8 @@ public class BesoinService {
         return repository.FindAllV_Besoins_Global();
     }
 
+    public List<Besoin> findAllByIdService(String idService) {
+        return repository.findAllByIdService(idService);
+    }
    
 }

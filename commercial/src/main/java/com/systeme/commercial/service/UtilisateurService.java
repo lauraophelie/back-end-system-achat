@@ -12,9 +12,14 @@ public class UtilisateurService {
     public UtilisateurService(UtilisateurRepository repository) {
         this.repository = repository;
     }
+    
     public boolean verifierUtilisateur(Utilisateur utilisateur) {
         Utilisateur utilisateurEnBase = repository.findByEmailAndPassword(utilisateur.getEmail(), utilisateur.getPassword());
 
         return utilisateurEnBase != null;
+    }
+
+    public Utilisateur checkUtilisateur(Utilisateur utilisateur) {
+        return repository.findByEmailAndPassword(utilisateur.getEmail(), utilisateur.getPassword());
     }
 }
