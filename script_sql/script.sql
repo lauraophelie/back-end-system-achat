@@ -237,6 +237,7 @@ CREATE table fournisseur(
 );
 
 create table proforma(
+	id SERIAL PRIMARY key,
 	id_article varchar(8),
 	quantite int,
 	prixUnitaire decimal,
@@ -246,7 +247,76 @@ create table proforma(
 	CONSTRAINT fk_proforma_fournisseur FOREIGN KEY ( id_fournisseur ) REFERENCES fournisseur( id )  
 );
 
+
+ALTER table proforma add column etat int DEFAULT 0;
+ALTER table proforma add column id SERIAL PRIMARY key;
+
+
+
 insert into fournisseur(nom,adresse,responsable) values('Jumbo Score','Ankorondrano','Reponsable Jumbo');
 insert into fournisseur(nom,adresse,responsable) values('Supermaki','Andoharanofotsy','Reponsable Supermaki');
 insert into fournisseur(nom,adresse,responsable) values('Super U','Analakely','Reponsable Super U');
+
+CREATE VIEW vue_prix_minimum_par_article_et_date AS
+SELECT
+    p.id_article,
+    a.nom AS nomArticle,
+	p.id ,
+    p.dateProforma,
+    p.prixUnitaire * p.quantite AS prixTotal,
+    f.nom AS nomFournisseur,
+    p.etat
+FROM
+    proforma p
+JOIN
+    fournisseur f ON p.id_fournisseur = f.id
+JOIN
+    article a ON p.id_article = a.id
+WHERE
+    (p.id_article, p.dateProforma, p.prixUnitaire * p.quantite) IN (
+        SELECT
+            id_article,
+            dateProforma,
+            MIN(prixUnitaire * quantite) AS prixMinimum
+        FROM
+            proforma
+        GROUP BY
+            id_article,
+            dateProforma
+    )
+AND
+    p.etat = 0;
+
+create table bon_commande(
+	id SERIAL PRIMARY key,
+	dateTirage date,
+	numero varchar(50),
+	delaiLivraison date,
+	partiel boolean,
+	paiement varchar(50),
+	id_proforma int,
+	FOREIGN key(id_proforma) REFERENCES proforma(id)
+);
+CREATE VIEW v_bon_commande_article AS
+SELECT
+    b.id AS id_bon_commande,
+    b.dateTirage,
+    b.numero,
+    b.delaiLivraison,
+    b.partiel,
+    b.paiement,
+    p.id AS id_proforma,
+    a.nom AS nom_article,
+    ca.nom_categorie AS nom_categorie_article,
+    f.nom AS nom_fournisseur
+FROM
+    bon_commande b
+JOIN
+    proforma p ON b.id_proforma = p.id
+JOIN
+    article a ON p.id_article = a.id
+JOIN
+    categorie_article ca ON a.categorie = ca.id
+JOIN
+    fournisseur f ON p.id_fournisseur = f.id;
 

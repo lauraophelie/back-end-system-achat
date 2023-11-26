@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "0f13c1bb-94a5-46e5-b6a7-9ab91628a54d",
+		"name": "systeme_commercial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31254493"
+	},
+	"item": [
+		{
+			"name": "newProforma",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// [\r\n//     {\r\n//         \"idArticle\":\"ART1\",\r\n//         \"quantite\":2\r\n//     },\r\n//     {\r\n//         \"idArticle\":\"ART2\",\r\n//         \"quantite\":10\r\n//     }\r\n// // ]\r\n// {\r\n//     \"etat\":1\r\n// }\r\n\r\n{\r\n  \"idArticle\": [\"ART3\", \"ART2\"],\r\n  \"quantites\": [3, 40],\r\n  \"prixU\": [5, 10],\r\n  \"idFournisseurs\": \"FRN2\",\r\n  \"date\": \"2023-12-24\"\r\n}\r\n\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/proforma/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"proforma",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMoinsDisant",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/proforma-min/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"proforma-min",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "newBon-commande",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"dateTirage\": \"2023-11-27\",\r\n    \"numero\": \"BC123\",\r\n    \"delaiLivraison\": \"2023-12-05\",\r\n    \"partiel\": false,\r\n    \"paiement\": \"Carte de crédit\",\r\n    \"id_proforma\": 1\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
