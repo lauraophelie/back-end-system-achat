@@ -21,6 +21,6 @@ public class ArticleService {
     }
 
     public Article findById(String id) {
-        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("Article introuvable"));
+        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("Article introuvable : " + id));
     }
 }

@@ -1,6 +1,15 @@
 package com.systeme.commercial.model;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "fournisseur")
 public class Fournisseur {
+    @Id
+    @Column(name = "id")
     String id;
 
     public String getId() {
@@ -11,6 +20,7 @@ public class Fournisseur {
         this.id = id;
     }
 
+    @Column(name = "nom")
     String nom;
 
     public String getNom() {
@@ -21,6 +31,7 @@ public class Fournisseur {
         this.nom = nom;
     }
 
+    @Column(name = "email")
     String email;
 
     public String getEmail() {
@@ -31,6 +42,7 @@ public class Fournisseur {
         this.email = email;
     }
 
+    @Column(name = "adresse")
     String adresse;
 
     public String getAdresse() {
@@ -39,5 +51,16 @@ public class Fournisseur {
 
     public void setAdresse(String adresse) {
         this.adresse = adresse;
+    }
+
+    @Column(name = "responsable")
+    String responsable;
+
+    public String getResponsable() {
+        return responsable;
+    }
+
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
     }
 }

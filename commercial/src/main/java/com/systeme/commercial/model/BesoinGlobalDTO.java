@@ -1,7 +1,5 @@
 package com.systeme.commercial.model;
 
-import java.math.BigDecimal;
-
 import jakarta.persistence.Tuple;
 
 public class BesoinGlobalDTO {

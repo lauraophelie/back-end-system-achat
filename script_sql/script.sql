@@ -230,10 +230,9 @@ CREATE SEQUENCE fornisseur_id_seq;
 CREATE table fournisseur(
 	id                   varchar(8) DEFAULT CONCAT('FRN', nextval('fornisseur_id_seq')) NOT NULL ,
 	nom varchar(50),
-	adresse varchar(50),
+	adresse varchar(100),
 	responsable varchar(80),
 	CONSTRAINT pk_fournisseur_id PRIMARY KEY ( id )
-
 );
 
 create table proforma(

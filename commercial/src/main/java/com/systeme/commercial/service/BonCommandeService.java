@@ -1,11 +1,10 @@
-package com.demo.demo.service;
+package com.systeme.commercial.service;
 
-import com.demo.demo.model.Bon_commande;
-import com.demo.demo.repository.BonCommandeRepository;
+import com.systeme.commercial.model.Bon_commande;
+import com.systeme.commercial.repository.BonCommandeRepository;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
