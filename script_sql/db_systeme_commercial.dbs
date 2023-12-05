@@ -264,8 +264,7 @@ CREATE  TABLE besoin_article (
 	quantite             integer   ,
 	CONSTRAINT fk_besoin_article_article FOREIGN KEY ( id_article ) REFERENCES article( id )  ,
 	CONSTRAINT fk_besoin_article_besoin FOREIGN KEY ( id_besoin ) REFERENCES besoin( id )  
- );
-]]></string>
+ );]]></string>
 		</script>
 	</layout>
 </project>
