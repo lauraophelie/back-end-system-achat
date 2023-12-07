@@ -81,6 +81,36 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "newEntree",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"dateEntree\": \"2023-12-24\",\r\n  \"idArticle\": [\"ART3\", \"ART2\"],\r\n  \"qteEntree\": [3, 40],\r\n  \"prix\": [5, 10]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/entree/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"entree",
+						"new"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
