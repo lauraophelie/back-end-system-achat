@@ -233,7 +233,6 @@ insert into fournisseur(nom,adresse,responsable) values('Jumbo Score','Ankorondr
 insert into fournisseur(nom,adresse,responsable) values('Supermaki','Andoharanofotsy','Reponsable Supermaki');
 insert into fournisseur(nom,adresse,responsable) values('Super U','Analakely','Reponsable Super U');
 
-<<<<<<< HEAD
 CREATE VIEW vue_prix_minimum_par_article_et_date AS
 SELECT
     p.id_article,
@@ -296,6 +295,27 @@ JOIN
     categorie_article ca ON a.categorie = ca.id
 JOIN
     fournisseur f ON p.id_fournisseur = f.id;
-=======
->>>>>>> 17a2750180f241063c3fc66b12c6dd733e1e8d86
->>>>>>> b2bf1f3fd767172ab618917c1cc4d0cd5e747e8e
+
+
+-- 0=>fifo  1=>lifo
+alter table article add column typeArticle int;
+alter table article add column idunite int references unite(id);
+
+
+create table unite(
+	id SERIAL PRIMARY key,
+	typeUnite varchar(20)
+);
+
+insert into unite(typeUnite) values('kg');
+insert into unite(typeUnite) values('l');
+
+
+create table entree(
+    id SERIAL PRIMARY KEY,
+    dateEntree date,
+    idArticle VARCHAR(50),
+    prix decimal,
+    qteEntree decimal,
+    foreign key(idArticle) references article(id)
+);
