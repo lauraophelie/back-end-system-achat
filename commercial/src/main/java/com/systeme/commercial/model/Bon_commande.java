@@ -2,6 +2,8 @@ package com.systeme.commercial.model;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,12 +20,14 @@ public class Bon_commande {
     int id;
 
     @Column(name = "datetirage")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     Date dateTirage;
 
     @Column(name = "numero")
     String numero;
 
     @Column(name = "delailivraison")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "UTC")
     Date delaiLivraison;
 
     @Column(name = "partiel")

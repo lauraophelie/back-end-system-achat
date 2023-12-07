@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/bon-commande")
+@CrossOrigin(origins = "*")
 public class BonCommandeController {
     private final BonCommandeService bonCommandeService;
 

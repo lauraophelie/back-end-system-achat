@@ -16,6 +16,9 @@ INSERT INTO utilisateur(email, mdp, id_service, id_role) VALUES
                         ('user2@gmail.com', 'rh', 'SER1', 'ROL5'),
                         ('user3@gmail.com', 'finance', 'SER2', 'ROL5');
 
+INSERT INTO utilisateur(email, mdp, id_service, id_role) VALUES
+                        ('user4@gmail.com', 'rh', 'SER1', 'ROL1'),
+                        ('user5@gmail.com', 'achat', 'SER4', 'ROL1');
 
 INSERT INTO categorie_article(nom_categorie) VALUES
                             ('Fourniture de Bureau'),

@@ -9,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.systeme.commercial.api.APIResponse;
-import com.systeme.commercial.model.Besoin;
 import com.systeme.commercial.model.NewProforma;
-import com.systeme.commercial.model.Proforma;
-import com.systeme.commercial.service.BesoinGlobalService;
 import com.systeme.commercial.service.ProformaService;
 
 

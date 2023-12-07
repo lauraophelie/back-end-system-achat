@@ -76,5 +76,9 @@ public class BesoinService {
     public List<Besoin> findAllByIdService(String idService) {
         return repository.findAllByIdService(idService);
     }
+
+    public Besoin findById(int id) {
+        return repository.findById(id).orElseThrow(()-> new NoSuchElementException("besoin not found"));
+    }
    
 }
