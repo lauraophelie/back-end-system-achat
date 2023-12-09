@@ -319,3 +319,26 @@ JOIN
 JOIN
     fournisseur f ON p.id_fournisseur = f.id;
 
+
+-- 0=>fifo  1=>lifo
+alter table article add column typeArticle int;
+alter table article add column idunite int references unite(id);
+
+
+create table unite(
+	id SERIAL PRIMARY key,
+	typeUnite varchar(20)
+);
+
+insert into unite(typeUnite) values('kg');
+insert into unite(typeUnite) values('l');
+
+
+create table entree(
+    id SERIAL PRIMARY KEY,
+    dateEntree date,
+    idArticle VARCHAR(50),
+    prix decimal,
+    qteEntree decimal,
+    foreign key(idArticle) references article(id)
+);
