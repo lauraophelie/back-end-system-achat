@@ -22,6 +22,4 @@ public class BonCommandeService {
     public List<Bon_commande> getAllBonCommandes() {
         return bonCommandeRepository.findAll();
     }
-    
-    // Vous pouvez ajouter d'autres méthodes de service si nécessaire
 }
