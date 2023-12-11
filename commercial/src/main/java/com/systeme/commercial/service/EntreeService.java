@@ -5,6 +5,8 @@ import java.sql.Date;
 import org.springframework.stereotype.Service;
 
 import com.systeme.commercial.model.Entree;
+import com.systeme.commercial.model.Proforma;
+import com.systeme.commercial.repository.BesoinRepository;
 import com.systeme.commercial.repository.EntreeRepository;
 
 import jakarta.transaction.Transactional;
@@ -29,6 +31,7 @@ public class EntreeService {
             entree.setDateEntree(dateEntree);
 
             repository.createEntree(entree.getDateEntree(), entree.getIdArticle(), entree.getPrix(), entree.getQteEntree());
+            repository.createStock(entree.getDateEntree(), entree.getIdArticle(), entree.getPrix(), entree.getQteEntree());
             repository.flush();
         }
     }

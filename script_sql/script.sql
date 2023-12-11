@@ -342,3 +342,51 @@ create table entree(
     qteEntree decimal,
     foreign key(idArticle) references article(id)
 );
+
+
+
+create table stock(
+    idStock SERIAL PRIMARY key,
+    dateStock date,  
+    idArticle VARCHAR(50),
+    prixU decimal,
+    qteInStock decimal,
+    foreign key (idArticle) references article(id)
+);
+
+create table sortie(
+    id SERIAL PRIMARY KEY,
+    dateSortie date,
+    idArticle VARCHAR(50),
+    qteSortie decimal,
+    foreign key(idArticle) references article(id)
+);
+
+
+create table mouvement(
+    idMouvement SERIAL PRIMARY key,
+    idEntree int not null,
+    dateGet_Entree date,
+    qteIn_Entree decimal,
+    idSortie int not null,
+    date_Sortie date,
+    qteA_Sortir decimal,
+    resteForDate_Entree decimal,
+    resteA_sortir decimal,
+    prixEntree decimal,
+    qteSortie_initiale decimal,
+    idArticle VARCHAR(50),
+    foreign key(idArticle) references article(id)
+);
+
+
+
+select id,dateentree,idarticle,prix,qteentree from entree
+ where dateentree=(select min(dateentree) from entree where idarticle like 'ART3' and dateentree<='2023-12-24');
+
+ insert into article(nom,categorie,typearticle) values('stylo','CAT1',1);
+insert into article(nom,categorie,typearticle) values('cahier','CAT1',0);
+insert into article(nom,categorie,typearticle) values('ordinateur','CAT2',1);
+
+insert into entree(dateentree,idarticle,prix,qteentree) values('2023-10-02','ART4',2000,20);
+insert into entree(dateentree,idarticle,prix,qteentree) values('2023-10-02','ART5',2000,15);
