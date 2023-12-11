@@ -8,9 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.systeme.commercial.*;
+import com.systeme.commercial.model.Entree;
 import com.systeme.commercial.model.Mouvement;
-import com.systeme.commercial.*;
 
 import jakarta.transaction.Transactional;
 
@@ -36,4 +35,18 @@ public interface MouvementRepository extends JpaRepository<Mouvement, Integer>{
     @Query(value = "select * from mouvement where idarticle like :idArticle  and date_sortie =:dateSortie",nativeQuery = true)
     Mouvement[] get_MouvementFor_OneDateSortie(@Param("idArticle") String idArticle,
                                                @Param("dateSortie") Date dateSortie);
+
+    @Query(value = "select sum(qtesortie) as qtesortie from sortie where idarticle like :idArticle and datesortie>=:dateDebut and datesortie<=:dateFin",nativeQuery = true)
+    double qteSortieEntre2Dates(@Param("idArticle") String idArticle,
+                                @Param("dateDebut") Date dateDebut,
+                                @Param("dateFin") Date dateFin);
+
+    @Query(value = "select qteIn_entree,prixentree,restefordate_entree  from mouvement where idarticle like :idArticle  and date_sortie<:dateDebut",nativeQuery = true)   
+    double getMontant_SortieBeforeDate(@Param("idArticle") String idArticle,
+                                      @Param("dateDebut") Date dateDebut);
+                                      
+    @Query(value = "select qteIn_entree,prixentree,restefordate_entree  from mouvement where idarticle like :idArticle and date_sortie>=:dateDebut and date_sortie<=:dateFin",nativeQuery = true)
+    double getMontant_SortieBetweenDate(@Param("idArticle") String idArticle,
+                                        @Param("dateDebut") Date dateDebut,
+                                        @Param("dateFin") Date dateFin);
 }
